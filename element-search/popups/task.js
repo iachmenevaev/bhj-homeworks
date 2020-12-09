@@ -1,11 +1,9 @@
-let element = document.getElementById('modal_main');
-console.log(element);
 element.classList.add('modal_active');
-element.onclick = close;
- function close() {
-    element.classList.remove('modal_active');
-     element.classList.toggle('modal__close');
- }
+let cross = Array.from(document.getElementsByClassName('modal__close'));
+console.log(cross);
+cross.forEach(item => item.onclick = () => {
+        item.closest('.modal_active ').classList.remove('modal_active');
+})
 let elementtwo = document.getElementsByClassName('show-success');
 let arr = Array.from(elementtwo);
 let butn = arr[0];
