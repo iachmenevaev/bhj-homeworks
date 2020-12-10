@@ -8,5 +8,6 @@ function time(){
  element.textContent = elem;
  }
   else   {alert('Вы победили в конкурсе!');
+  clearInterval(time);
  }
 }
