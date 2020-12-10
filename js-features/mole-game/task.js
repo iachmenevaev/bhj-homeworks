@@ -20,12 +20,12 @@ function holecheck(){
   }
     if (dead.textContent === "10") {
           alert ("Вы победили!");
-          dead = 0;
-          lost = 0;
+          dead.textContent = 0;
+          lost.textContent = 0;
     } else if (lost.textContent === "5") {
            alert ("Вы проиграли");
-           dead = 0;
-           lost = 0;
+           dead.textContent = 0;
+           lost.textContent = 0;
     }
   }
     hole.onclick = holecheck;     
