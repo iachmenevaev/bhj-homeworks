@@ -1,3 +1,4 @@
+let element = document.getElementById('modal_main');
 element.classList.add('modal_active');
 let cross = Array.from(document.getElementsByClassName('modal__close'));
 console.log(cross);
