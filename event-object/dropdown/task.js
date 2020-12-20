@@ -14,6 +14,7 @@ for ( let i = 0; i < arrdroplist.length; i ++ ) {
         let elementTwo = element.querySelector(".dropdown__link");
         console.log(elementTwo);
         drop.textContent = elementTwo.innerHTML;
+        drop.nextElementSibling.classList.remove('dropdown__list_active');
         event.preventDefault();
             }
     arrdroplist[i].addEventListener("click", handler);
