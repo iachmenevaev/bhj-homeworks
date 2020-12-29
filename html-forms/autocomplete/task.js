@@ -68,6 +68,28 @@ class Autocomplete {
   }
 
   getMatches( text ) {
+  //   this.input.addEventListener('change',e =>{
+      
+    let arr = Array.from(this.input.options);
+      for (let i = 0; i < arr.length; i++)  {
+      let element = arr[i].text;
+      let elementTwo = arr[i].value;
+      console.log(arr[i].text);
+      let checkin = element.includes(text);
+      if (checkin === true){
+        console.log(arr[i].text);
+          return [
+      {
+        text: element,
+        value: elementTwo
+      }
+      ];
+      }
+  
+    } 
+   }
+  // })
+     
     /*
       TODO: этот метод нужно дописать
       text - фраза, которую вводят в поле поиска
@@ -81,13 +103,8 @@ class Autocomplete {
         value: 'Содержимое атрибута value'
       }
     */
-    return [
-      {
-        text: 'Чубакка',
-        value: '1'
-      }
-    ];
-  }
-}
+  
+     }
+
 
 new Autocomplete( document.querySelector( '.autocomplete' ));
