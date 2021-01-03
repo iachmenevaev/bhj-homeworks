@@ -1,33 +1,46 @@
-const nodeArray = (selector, parent=document) => [].slice.call(parent.querySelectorAll(selector));
-const allThings = nodeArray('input');
+const containerElement = document.querySelector('.interests_main');
 
-addEventListener('change', e => {
- let check = e.target;
+containerElement.addEventListener('click', (e) => {
+  let currentElement = e.target;
+  const { parentElement } = e.target;
+  const labelInnerText = parentElement.innerText;
+  if (
+    labelInnerText === 'Еда'
+    || labelInnerText === 'Домашние животные'
+    || labelInnerText === 'Котики'
+  ) {
+    const childElements = [...parentElement.nextElementSibling.querySelectorAll('label input')];
+    if (currentElement.checked) {
+      childElements.forEach((el) => {
+      
+        el.checked = true;
+      });
+    } else {
+      childElements.forEach((el) => {
+      
+        el.checked = false;
+      });
+    }
+  }
+  while (currentElement) {
+    const parent = currentElement
+      .closest(['ul'])
+      .parentNode.querySelector('input');
+    const siblings = getArrayInputs(
+      'input',
+      parent.closest('li').querySelector('ul'),
+    );
+    const checkStatus = siblings.map((check) => check.checked);
+    const every = checkStatus.every(Boolean);
+    const some = checkStatus.some(Boolean);
 
-  if(allThings.indexOf(check) === -1) return;
+    parent.checked = every;
+    parent.indeterminate = !every && every !== some;
 
-  const children = nodeArray('input', check.parentNode);
-  children.forEach(child => child.checked = check.checked);
- 
-   while(check){
-    
-const parent   = (check.closest(['ul']).parentNode).querySelector('input');
-const siblings = nodeArray('input', parent.closest('li').querySelector(['ul']));
-const checkStatus = siblings.map(check => check.checked);
-const every  = checkStatus.every(Boolean);
-const some = checkStatus.some(Boolean);   
-    
-  
-parent.checked = every;		
-parent.indeterminate = !every && every !== some;
-check = check != parent ? parent : 0;  
- }
-})
+    currentElement = currentElement !== parent ? parent : 0;
+  }
+});
 
-
-
-
-
-
-
-
+function getArrayInputs(selector, parent = document) {
+  return [...parent.querySelectorAll(selector)];
+}
