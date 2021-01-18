@@ -6,37 +6,29 @@ let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
   }
 xhr.open('GET', 'https://netology-slow-rest.herokuapp.com/',true);
-xhr.onload = function currencyReturn(){
-    let jsonResponse = xhr.response;
-    let currency= JSON.parse(jsonResponse);
-    console.log(currency);
-    return currency;
-    }
-    xhr.send();
-currencyReturn();
-console.log (currency);
-};
-function addCurrency(currency) {
-  const { Valute } = currency;
-  console.log(currency);
-  loaderElement.classList.remove('loader_active');
-  let template = '';
-  Object.values(Valute).forEach((element) => {
-    template += templateCurrency(element);
-  });
-container.insertAdjacentHTML('afterbegin', template);
-}
-function templateCurrency({ CharCode, Value}) {
-    return `
-    <div class="item__code">
-    USD
-</div>
-<div class="item__value">
-    32
-</div>
-<div class="item__currency">
-    руб.
-</div>
-    `
-}
 
+xhr.send();
+xhr.onreadystatechange = function getCurrency() {
+    if(xhr.readyState === 4) {
+        let jsonResponse = xhr.response;
+        let currency= JSON.parse(jsonResponse);
+    const valute  = currency.response;
+    const v = valute.Valute;
+    loaderElement.classList.remove('loader_active');
+    let template = '';
+    (Object.values(v)).forEach((element) => {
+template += templateCurrency(element);
+        });
+ container.insertAdjacentHTML('afterbegin', template);
+  }
+ function templateCurrency({ CharCode, Value}) {
+      return `
+      <div class="item">
+      <div class="item__code">${CharCode}</div>
+      <div class="item__value">${Value}</div>
+      <div class="item__currency">руб.</div>
+    </div>
+  `;
+  }
+ }
+}
